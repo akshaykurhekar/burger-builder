@@ -17,15 +17,28 @@ function BurgerBuilder(){
     const [Prices,setPrices] = useState(10);
     
     const [purchasable,setPurchasable] = useState(false);
+    const [purchasing,setPurchasing] = useState(false);
 
    const Ingredient_Prices ={
         salad:0.5,
         cheese:0.4,
         bacon:1.3,    
         meat:2
-     }    
+     } 
+    
+     const purchasingHandler=()=>{
+         setPurchasing(true);        
+     }
 
- const updatePurchaseState = (ingredient) => {
+    const purchaseCancelHandler=()=>{
+        setPurchasing(false);
+    }
+
+    const purchaseContinueHandler=()=>{
+        alert("Continue success");
+    }
+
+    const updatePurchaseState = (ingredient) => {
         const sum = Object.keys(ingredient)
             .map(igKey =>{
                 return ingredient[igKey];
@@ -84,14 +97,22 @@ function BurgerBuilder(){
 
     return( 
     <Aux>
-        <Modal>
-            <OrderSummary ingredients={Ingredient} />
-        </Modal>        
+        <Modal show={purchasing} closeModal={purchaseCancelHandler}>
+            <OrderSummary            
+            ingredients={Ingredient} 
+            price={Prices}
+            purchaseContinue={purchaseContinueHandler}
+            purchaseCancel={purchaseCancelHandler}
+            />
+        </Modal>
+
         <Burger ingredient={Ingredient} />
+        
         <BurgerControls 
         addIngredient={addIngredientHandler}
         removeIngredient={removeIngredientHandler}
-        disabled={disabledInfo} 
+        disabled={disabledInfo}
+        ordered = {purchasingHandler} 
         price={Prices} 
         purchasable ={purchasable}
         />
