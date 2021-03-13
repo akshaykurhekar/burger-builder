@@ -11,10 +11,11 @@
     padding: 5px;
     margin: 0 5px;
     width: 80px;
-    border: 1px solid #ce770d;
+    border: 1px solid #AA6817;
     cursor: pointer;
     outline: none;
 }
+
 
 .BuildControl button:disabled {
     background-color: #AC9980;
