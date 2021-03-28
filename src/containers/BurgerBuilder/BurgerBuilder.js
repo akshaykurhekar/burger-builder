@@ -9,7 +9,7 @@ import axios from "../../axios-orders";
 import Spinner from '../../component/UI/Spinner/Spinner';
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
-function BurgerBuilder(){
+function BurgerBuilder(props){
    const [Ingredient,setIngredient] = useState(null);
 
     const [Prices,setPrices] = useState(10);
@@ -26,6 +26,9 @@ function BurgerBuilder(){
      } 
     
      useEffect(() => {
+
+        console.log(props)
+
          axios.get('https://react-burger-app-87e69-default-rtdb.firebaseio.com/ingredient.json')
          .then(response => {
              setIngredient(response.data);
@@ -35,7 +38,7 @@ function BurgerBuilder(){
 
      },[]);
 
-     const purchasingHandler=()=>{
+     const purchasingHandler = () => {
          setPurchasing(true);        
      }
 
@@ -44,30 +47,45 @@ function BurgerBuilder(){
     }
 
     const purchaseContinueHandler = () => {
-        setLoading(true);
-        const order = {
-            ingredient: Ingredient,
-            price: Prices,
-            customer:{
-                name:'Akshay Kurhekar',
-                address:{
-                    street:'Test street',
-                    zipCode: 444709,
-                    country: 'India'
-                },
-                email:'test@test.com'
-            },
-            deliveryMethod:'fastest'
+        // setLoading(true);
+        // const order = {
+        //     ingredient: Ingredient,
+        //     price: Prices,
+        //     customer:{
+        //         name:'Akshay Kurhekar',
+        //         address:{
+        //             street:'Test street',
+        //             zipCode: 444709,
+        //             country: 'India'
+        //         },
+        //         email:'test@test.com'
+        //     },
+        //     deliveryMethod:'fastest'
+        // }
+
+        // axios.post('/orders.json', order)
+        // .then(response => { 
+        //     setLoading(false);
+        //     setPurchasing(false);
+        //     })
+        // .catch(error => {
+        //     setLoading(false);
+        // });
+
+        const queryParams = [];
+
+        for(let i in Ingredient) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(Ingredient[i]) )
         }
 
-        axios.post('/orders.json', order)
-        .then(response => { 
-            setLoading(false);
-            setPurchasing(false);
-            })
-        .catch(error => {
-            setLoading(false);
+        const queryString = queryParams.join('&');
+
+        props.history.push({
+            pathname:'checkout',
+            search: '?' + queryString
         });
+
+
     }
 
     const updatePurchaseState = (ingredient) => {

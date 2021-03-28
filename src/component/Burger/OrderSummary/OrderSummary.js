@@ -1,6 +1,8 @@
 import Aux from "../../../hoc/Auxiliary";
 import Button from "../../UI/Button/Button";
 
+import {Link} from "react-router-dom";
+
 const orderSummary = (props) => {
 
     const ingredientSummary = Object.keys(props.ingredients)

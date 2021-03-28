@@ -12,7 +12,6 @@ const toolbar =(props)=>{
             <nav className="DesktopOnly">
                <NavigationItems/>
             </nav>
-
         </header>
     );
 }

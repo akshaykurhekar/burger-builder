@@ -1,7 +1,7 @@
 import "./Burger.css";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
-const burger =(props)=>{
+const burger = (props)=>{
 
     let Ingredients = Object.keys(props.ingredient)
     .map(igKey =>{
