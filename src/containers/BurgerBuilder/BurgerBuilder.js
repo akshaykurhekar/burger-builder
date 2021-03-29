@@ -6,6 +6,7 @@ import BurgerControls from "../../component/Burger/BuildControls/BuildControls";
 import Modal from "../../component/UI/Modal/Modal";
 import OrderSummary from "../../component/Burger/OrderSummary/OrderSummary"; 
 import axios from "../../axios-orders";
+
 import Spinner from '../../component/UI/Spinner/Spinner';
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
@@ -47,39 +48,15 @@ function BurgerBuilder(props){
     }
 
     const purchaseContinueHandler = () => {
-        // setLoading(true);
-        // const order = {
-        //     ingredient: Ingredient,
-        //     price: Prices,
-        //     customer:{
-        //         name:'Akshay Kurhekar',
-        //         address:{
-        //             street:'Test street',
-        //             zipCode: 444709,
-        //             country: 'India'
-        //         },
-        //         email:'test@test.com'
-        //     },
-        //     deliveryMethod:'fastest'
-        // }
-
-        // axios.post('/orders.json', order)
-        // .then(response => { 
-        //     setLoading(false);
-        //     setPurchasing(false);
-        //     })
-        // .catch(error => {
-        //     setLoading(false);
-        // });
-
+        
         const queryParams = [];
 
         for(let i in Ingredient) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(Ingredient[i]) )
         }
-
+        queryParams.push('price='+ Prices);
         const queryString = queryParams.join('&');
-
+                
         props.history.push({
             pathname:'checkout',
             search: '?' + queryString

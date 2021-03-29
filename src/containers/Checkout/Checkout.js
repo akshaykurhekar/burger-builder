@@ -8,29 +8,37 @@ function Checkout(props){
 
     const [Ingredients,setIngredients] = useState({
    
-        salad:1,
-        cheese:1,
-        bacon:1,    
-        meat:1
+        salad:0,
+        cheese:0,
+        bacon:0,    
+        meat:0
     });
+    const [Price, setPrice] = useState(0);
 
     useEffect(() => {
         // console.log("useeffect calling...")
-        const query = new URLSearchParams(props.location.search);
+        const query = new URLSearchParams( props.location.search );
         const ingredients = {};
-
+        let prices = 0;
         for(let prams of query.entries() ) {
             // ["meet" :1 ]
-            ingredients[prams[0]] = +prams[1];
+            if(prams[0] === 'price'){
+                prices = prams[1];
+                setPrice(prices);
+            }else{
+                ingredients[prams[0]] = +prams[1];
+            }            
         }
         setIngredients(ingredients);
+        
+        
     }, []) ;
 
-    const checkoutCanceledHandler = () =>{
+    const checkoutCanceledHandler = () => {
         props.history.goBack();
     }
 
-    const checkoutContinuedHandler = () =>{
+    const checkoutContinuedHandler = () => {
         props.history.replace('/checkout/contact-data');
     }
 
@@ -43,7 +51,7 @@ function Checkout(props){
 
             <Route 
               path={props.match.path + '/contact-data'} 
-              component={ ContactData } />
+              render ={ (props) => ( <ContactData ingredients ={ Ingredients } price={ Price } {...props} /> ) } />
         </div>
     )
 }
