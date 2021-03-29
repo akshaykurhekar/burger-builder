@@ -24,7 +24,7 @@ function Checkout(props){
             ingredients[prams[0]] = +prams[1];
         }
         setIngredients(ingredients);
-    },[]);
+    }, []) ;
 
     const checkoutCanceledHandler = () =>{
         props.history.goBack();

@@ -12,7 +12,11 @@ function ContactData() {
             street:'',
             postalCode: ''
         }
-    })
+    }, [ ]);
+
+const orderHandler = () => {
+
+}
 
     return(
         <div className="ContactData">
@@ -22,7 +26,7 @@ function ContactData() {
                 <input className="Input" type="email" name="email" placeholder="Your Mail" />
                 <input className="Input"  type="text" name="street" placeholder="Street" />
                 <input className="Input" type="text" name="postal" placeholder="Postal Code" />
-                <Button btnType="Success" >ORDER</Button>
+                <Button btnType="Success" clicked={ orderHandler } >ORDER</Button>
             </form>
         </div>
     );
