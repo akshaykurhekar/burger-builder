@@ -4,6 +4,7 @@ import axios from "../../../axios-orders";
 
 import Button from "../../../component/UI/Button/Button";
 import Spinner from "../../../component/UI/Spinner/Spinner";
+import Input from "../../../component/UI/input/input";
 
 function ContactData (props) {
 
@@ -51,10 +52,10 @@ const orderHandler = (event) => {
 
     let form = (
         <form>
-                <input className="Input" type="text" name="name" placeholder="Your Name" />
-                <input className="Input" type="email" name="email" placeholder="Your Mail" />
-                <input className="Input"  type="text" name="street" placeholder="Street" />
-                <input className="Input" type="text" name="postal" placeholder="Postal Code" />
+                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
+                <Input inputtype="input" type="email" name="email" placeholder="Your Mail" />
+                <Input inputtype="input" type="text" name="street" placeholder="Street" />
+                <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
                 <Button btnType="Success" clicked={ orderHandler } >ORDER</Button>
             </form>
     );
