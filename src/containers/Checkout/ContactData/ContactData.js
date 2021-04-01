@@ -84,11 +84,15 @@ function ContactData (props) {
                     {value:'cheapest', displayValue:'Cheapest'}
 
                 ]
-            },
-            value:''
+            },        
+            value:'fastest',
+            validation:{},
+            valid: true
         }
         
     });
+
+    const [formValid, setFormValid] = useState(false);
 
     const [loading,setLoading] = useState(false);
 
@@ -124,8 +128,13 @@ function ContactData (props) {
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation );
         updatedFormElement.touched = true;
-        // console.log(updatedFormElement);
         updatedOrderForm[id] = updatedFormElement;
+
+        let formIsValid = true;
+        for(let id in updatedOrderForm){
+                 formIsValid = updatedOrderForm[id].valid && formIsValid;  
+        }
+        setFormValid(formIsValid );    
         
         setOrderForm(updatedOrderForm);
     }
@@ -172,7 +181,7 @@ function ContactData (props) {
                            touched = {formElement.config.touched }
                            changed={ (event) => inputChangeHandler(event,formElement.id) } />
                 ) )}
-                <Button btnType="Success">ORDER</Button>
+                <Button btnType="Success" disabled={ !formValid} >ORDER</Button>
             </form>
     );
 
