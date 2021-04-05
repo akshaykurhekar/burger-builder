@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { connect } from 'react-redux';
 import "./ContactData.css";
 import axios from "../../../axios-orders";
 
@@ -107,7 +108,7 @@ function ContactData (props) {
         }
 
         const order = {
-                ingredient: props.ingredients,
+                ingredient: props.ing,
                 price: props.price,
                 orderData: formData            
             }
@@ -197,4 +198,11 @@ function ContactData (props) {
     );
 }
 
-export default ContactData;
+const mapStateToProps = state =>{
+    return{
+        ing: state.Ingredient,
+        price: state.totalPrices
+    }
+}
+
+export default connect(mapStateToProps)(ContactData);
