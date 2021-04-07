@@ -7,9 +7,9 @@ import { Provider} from 'react-redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Reducer from './store/reducer';
+import Reducer from './store/reducer/burgerBuilder';
 
-const store = createStore(Reducer);
+const store = createStore(Reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const app = (
     <Provider store={store} > 
