@@ -6,6 +6,8 @@ import axios from "../../../axios-orders";
 import Button from "../../../component/UI/Button/Button";
 import Spinner from "../../../component/UI/Spinner/Spinner";
 import Input from "../../../component/UI/input/input";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import * as action from "../../../store/action/index";
 
 function ContactData (props) {
 
@@ -113,14 +115,8 @@ function ContactData (props) {
                 orderData: formData            
             }
 
-            axios.post('/orders.json', order)
-            .then(response => { 
-                setLoading(false);
-                props.history.push('/');
-                })
-            .catch(error => {
-                setLoading(false);
-            });
+            props.onPurchaseOrder(order);   // we always use props to call redux dispatch and state.
+            
     }
    const inputChangeHandler = (event, id) => {
         const updatedOrderForm = { ...orderForm };
@@ -205,4 +201,10 @@ const mapStateToProps = state =>{
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch =>{
+    return{
+        onPurchaseOrder: (orderData) => dispatch( action.purchaseOrderStart(orderData))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));

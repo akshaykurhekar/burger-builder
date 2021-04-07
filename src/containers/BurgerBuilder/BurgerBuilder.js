@@ -1,4 +1,4 @@
-import React,{useState } from 'react';
+import React,{useState,useEffect} from 'react';
 import { connect } from 'react-redux';
 
 import Aux from "../../hoc/Auxiliary";
@@ -15,20 +15,12 @@ function BurgerBuilder(props){
    
     const [purchasing,setPurchasing] = useState(false);
     const [loading,setLoading] = useState(false);
-    const [error,setError] = useState(false);
+    // const [error,setError] = useState(false);
          
-    //  useEffect(() => {
+     useEffect(() => {
+        props.onInitIngredient();        
 
-    //     console.log(props)
-
-    //      axios.get('https://react-burger-app-87e69-default-rtdb.firebaseio.com/ingredient.json')
-    //      .then(response => {
-    //          setIngredient(response.data);
-    //      }).catch(error => {
-    //         setError(true);
-    //      });
-
-    //  },[]);
+     },[]);
 
      const purchasingHandler = () => {
          setPurchasing(true);        
@@ -76,7 +68,7 @@ function BurgerBuilder(props){
 
          let orderSummary = null;
          
-         let burger = error ? <p style={{textAlign:"center",fontWeight:"bold" }}>burger Not Loading..</p> : <Spinner/>
+         let burger = props.error ? <p style={{textAlign:"center",fontWeight:"bold" }}>burger Not Loading..</p> : <Spinner/>
 
          if(props.ing){
              burger = (
@@ -117,14 +109,16 @@ function BurgerBuilder(props){
 const mapStateToProps = state => {
     return {
         ing: state.Ingredient,
-        price: state.totalPrices
+        price: state.totalPrices,
+        error: state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
         onAddIngredient: (name) => dispatch(actionCreator.addIngredient(name)),
-        onRemoveIngredient:(name) => dispatch(actionCreator.removeIngredient(name))
+        onRemoveIngredient:(name) => dispatch(actionCreator.removeIngredient(name)),
+        onInitIngredient: () => dispatch(actionCreator.initIngredient())
     }
 }
 
