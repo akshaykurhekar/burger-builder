@@ -18,8 +18,8 @@ function BurgerBuilder(props){
     // const [error,setError] = useState(false);
          
      useEffect(() => {
-        props.onInitIngredient();        
-
+        props.onInitIngredient();
+        
      },[]);
 
      const purchasingHandler = () => {
@@ -31,21 +31,8 @@ function BurgerBuilder(props){
     }
 
     const purchaseContinueHandler = () => {
-        
-        const queryParams = [];
-
-        for(let i in props.ing ) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(props.ing[i]) )
-        }
-        queryParams.push('price='+ props.price);
-        const queryString = queryParams.join('&');
-                
-        props.history.push({
-            pathname:'checkout',
-            search: '?' + queryString
-        });
-
-
+        props.onPurchaseInit();  
+        props.history.push('/checkout');
     }
 
     const updatePurchaseState = (ingredient) => {
@@ -108,9 +95,9 @@ function BurgerBuilder(props){
 
 const mapStateToProps = state => {
     return {
-        ing: state.Ingredient,
-        price: state.totalPrices,
-        error: state.error
+        ing: state.burgerBuilder.Ingredient,
+        price: state.burgerBuilder.totalPrices,
+        error: state.burgerBuilder.error
     }
 }
 
@@ -118,7 +105,8 @@ const mapDispatchToProps = dispatch => {
     return{
         onAddIngredient: (name) => dispatch(actionCreator.addIngredient(name)),
         onRemoveIngredient:(name) => dispatch(actionCreator.removeIngredient(name)),
-        onInitIngredient: () => dispatch(actionCreator.initIngredient())
+        onInitIngredient: () => dispatch(actionCreator.initIngredient()),
+        onPurchaseInit: () => dispatch(actionCreator.purchaseInit())
     }
 }
 

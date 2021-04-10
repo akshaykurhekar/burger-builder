@@ -97,12 +97,9 @@ function ContactData (props) {
 
     const [formValid, setFormValid] = useState(false);
 
-    const [loading,setLoading] = useState(false);
-
     const orderHandler = (event) => {
         event.preventDefault();
-        setLoading(true);
-
+        
         const formData = {};
 
         for(let id in orderForm){
@@ -182,7 +179,7 @@ function ContactData (props) {
             </form>
     );
 
-    if(loading){
+    if(props.loading){
         form = <Spinner/>
     }
 
@@ -196,14 +193,15 @@ function ContactData (props) {
 
 const mapStateToProps = state =>{
     return{
-        ing: state.Ingredient,
-        price: state.totalPrices
+        ing: state.burgerBuilder.Ingredient,
+        price: state.burgerBuilder.totalPrices,
+        loading: state.order.loading
     }
 }
 
 const mapDispatchToProps = dispatch =>{
     return{
-        onPurchaseOrder: (orderData) => dispatch( action.purchaseOrderStart(orderData))
+        onPurchaseOrder: (orderData) => dispatch( action.purchaseOrder(orderData))
     }
 }
 

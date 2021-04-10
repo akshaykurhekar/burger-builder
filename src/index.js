@@ -3,15 +3,22 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import { Provider} from 'react-redux';
 import {createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'; // for async dispatch action fun in actions
 
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Reducer from './store/reducer/burgerBuilder';
+import burgerBuilderReducer from './store/reducer/burgerBuilder';
+import ordersReducer from './store/reducer/orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(Reducer, composeEnhancers(
+
+const rootReducer = combineReducers({
+    burgerBuilder: burgerBuilderReducer,
+    order: ordersReducer
+});
+
+const store = createStore( rootReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
