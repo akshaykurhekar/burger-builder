@@ -4,5 +4,9 @@ export { addIngredient,
 export {
     purchaseOrder,
     purchaseInit,
-    fetchOrder
+    fetchOrder,    
 } from './orders';
+
+export {
+    auth
+} from './auth';

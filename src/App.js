@@ -2,6 +2,8 @@ import Layout from "./hoc/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 import Checkout from "./containers/Checkout/Checkout";
 import MyOrder from "./containers/MyOrder/MyOrder";
+import Auth from './containers/Auth/Auth';
+
 import {Route,Switch, Redirect} from 'react-router-dom';
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
             <Switch>
               <Route path="/checkout" component = { Checkout } />
               <Route path="/MyOrder" component = { MyOrder } />
+              <Route path="/Auth" component = { Auth } />
               <Route path="/" exact component = { BurgerBuilder } />
             </Switch>
          </Layout>      

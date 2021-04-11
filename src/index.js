@@ -10,12 +10,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import burgerBuilderReducer from './store/reducer/burgerBuilder';
 import ordersReducer from './store/reducer/orders';
+import authReducer from './store/reducer/auth';
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
-    order: ordersReducer
+    order: ordersReducer,
+    auth: authReducer
 });
 
 const store = createStore( rootReducer, composeEnhancers(
